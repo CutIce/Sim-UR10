@@ -1,7 +1,9 @@
 close all;
 clear;
 clc;
-addpath('./CoppeliaSimConnection');
+addpath('./connectCoppeliaSim/');
+addpath('./planning/');
+addpath('./controlCoppeliaSim/');
 
 vrep = remApi('remoteApi');
 vrep.simxFinish(-1);

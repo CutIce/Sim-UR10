@@ -1,4 +1,4 @@
-addpath('./func');
+addpath('./func/');
 [robot, para, axis]= model();
 
 robot.plot([0 0 0 0 0 0]);
@@ -26,8 +26,6 @@ T_suck_pre = [
      0      0       0         1;
 ];
 
-
-
 q1 = pi/18 * [1 2 3 4 5 6];
 q2 = pi/18 * [6 5 4 3 2 1];
 q3 = pi/18 * [9 6 2 4 1 8];
@@ -44,9 +42,20 @@ end
 
 
 %% test Inverse Kine
-q_suck = robot.ikunc(T_suck);
 q_suck_pre = robot.ikunc(T_suck_pre);
+fprintf("toolbox \n");
+disp(q_suck_pre)
+fprintf("Our method \n");
+inv_q_suck_pre = inverseKineFromT(T_suck_pre);
+disp(inv_q_suck_pre)
 
-
+q_suck = robot.ikunc(T_suck);
 disp(q_suck_pre)
 disp(q_suck)
+
+disp(q_loose)
+
+for i = 1:8
+%     t = double(robot.fkine(q_loose(i, :)));
+%     t - T_loose(:, :, i)
+end
