@@ -34,8 +34,8 @@ ur10.JointHandle = jointHandle;
 
 
 q0 = [0 0 0 0 0 0];
-q_suck_pre = [0.335164944401056   0.361596942813198   0.445077830622957   0.764121541604784  -1.570796305367679   0.335164837572886];
-q_suck     = [0.335165861538509   0.137551720081628   1.127653467370393   0.305591217970581  -1.570797279014585   0.335165484016708];
+q_suck_pre = [0.335165017967289   0.352673319578497   0.467011815031232   0.751111181967413  -1.570796314288928   0.335164958121476];
+q_suck     = [0.335165670444109   0.130558353501253   1.160328723798278   0.279909293849401  -1.570797166181687   0.335165212864728];
 q3 = [-pi/2 -pi/3 -pi/6 0 0 0];
 q4 = [-pi/2 -pi/3 -pi/6 0 pi/2 0];
 
@@ -44,7 +44,7 @@ max_placed_boxes = 8;
 
 q_seq = [q0; q_suck_pre; q_suck; q4; q0];
 
-n = 50;
+n = 20;
 while max_placed_boxes > 0
     [res, detect_state, detected_point, ~, ~] = vrep.simxReadProximitySensor(id, conveyor_sensor, vrep.simx_opmode_blocking);
     if detect_state
@@ -53,50 +53,11 @@ while max_placed_boxes > 0
         workstate = 0;
     end
     
-    if workstate
-        for k = 1:6
-            vrep.simxSetJointTargetPosition(id, ur10.JointHandle(k), q_suck_pre(k), vrep.simx_opmode_blocking);
-        end 
-        pause(2);
-        
-        for k = 1:6
-            vrep.simxSetJointTargetPosition(id, ur10.JointHandle(k), q_suck(k), vrep.simx_opmode_blocking);
+    if workstate == 1
+        for k = 1:4
+            traj = jtraj(q_seq(k, :), q_seq(k+1, :)
         end
-        pause(1.2);
-        controlSuction(id, 1);
-
-        
-        for k = 1:6
-            vrep.simxSetJointTargetPosition(id, ur10.JointHandle(k), q4(k), vrep.simx_opmode_blocking);
-        end 
-        pause(2.5);
-        controlSuction(id, 0);
-        
-        for k = 1:6
-            vrep.simxSetJointTargetPosition(id, ur10.JointHandle(k), q0(k), vrep.simx_opmode_blocking);
-        end 
-        pause(2);
     end
-    
-    max_placed_boxes = max_placed_boxes - 1;
-%     traj = jtraj(q_seq(1, :), q_seq(2, :), n);
-%     for s = 1:n
-%         for k = 1:6
-%             vrep.simxSetJointTargetPosition(id, ur10.JointHandle()
-%         end
-%     end
-    
-%     workstate
-%     if workstate == 1
-%         for k = 1:4
-%             traj = jtraj(q_seq(k, :), q_seq(k+1, :), n);
-%             for s = 1:n
-%                 for j = 1:6
-%                     vrep.simxSetJointTargetPosition(id, ur10.JointHandle(j), traj(s, j), vrep.simx_opmode_blocking);
-%                 end
-%             end
-%         end
-%     end
     
 %     for i = 1:6
 %         vrep.simxSetJointPosition(id, ur10.JointHandle(i), q_suck_pre(i), vrep.simx_opmode_blocking);

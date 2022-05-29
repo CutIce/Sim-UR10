@@ -11,6 +11,22 @@ Tt(1:3, 1:3) = [
 Tt(1:3, 4)   = [0 1 0.5]';
 Tt(4, 1:4)   = [0 0 0 1];
 % q1 = robot.ikine(Tt)
+format long
+T_suck = [
+    -1      0       0       650;
+     0      1       0       400;
+     0      0       -1      810;
+     0      0       0         1;
+];
+
+T_suck_pre = [
+    -1      0       0       650;
+     0      1       0       400;
+     0      0       -1      1000;
+     0      0       0         1;
+];
+
+
 
 q1 = pi/18 * [1 2 3 4 5 6];
 q2 = pi/18 * [6 5 4 3 2 1];
@@ -28,4 +44,9 @@ end
 
 
 %% test Inverse Kine
-iq1 = robot.ikine(Tt);
+q_suck = robot.ikunc(T_suck);
+q_suck_pre = robot.ikunc(T_suck_pre);
+
+
+disp(q_suck_pre)
+disp(q_suck)

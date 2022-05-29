@@ -4,7 +4,7 @@ function [robot, DHpara, axis] = model()
     theta3 = 0; d3 = 0;        a3 = -572.3;   alpha3 = 0;          off3 = 0;
     theta4 = 0; d4 = 163.941;  a4 = 0;        alpha4 = pi/2;       off4 = -pi/2;
     theta5 = 0; d5 = 115.7;    a5 = 0;        alpha5 = -pi/2;      off5 = 0;
-    theta6 = 0; d6 = 092.2;    a6 = 0;        alpha6 = 0;          off6 = pi/2;
+    theta6 = 0; d6 = 92.2+3.5;    a6 = 0;        alpha6 = 0;          off6 = pi/2;
 
     g = [0 -9.81 0]';
     DHpara = [theta1  d1   a1  alpha1 off1;
